@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import { Link } from "react-router-dom"
 
+
 const LogInUserNames = {name: "user", email: "user@gmail.com", password: "user123" }
 
  const LoginInitailValue = {
@@ -56,7 +57,7 @@ export default function LogIn () {
                     onChange={onChange}
                 />
            </label>
-
+           <br />
            <label htmlFor="LogInEmail">
            Email:
                <input
@@ -68,7 +69,7 @@ export default function LogIn () {
                 onChange={onChange}
                 />
            </label>
-
+           <br />
            <label htmlFor="LogInPassword">
            Password:
                <input
@@ -81,7 +82,8 @@ export default function LogIn () {
                  />
            </label>
            
-
+           <br />
+          
            <Link to ="/Something"> <button disabled={disabled} >LogIn</button></Link>
            
        </form>

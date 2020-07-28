@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 
+
 export default function Register ({values, update, submit, disabled, errors, inputChange}) {
     
 
@@ -29,7 +30,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
                     onChange={onChange}
                 />
            </label>
-
+           <br />
            <label htmlFor="email">
            Email:
                <input
@@ -41,7 +42,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
                 onChange={onChange}
                 />
            </label>
-
+            <br />
            <label htmlFor="password">
            Password:
                <input
@@ -54,6 +55,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
 
                  />
            </label>
+           <br />
            <label htmlFor="conPassword">
            Confirm Your Password:
                 <input
@@ -66,7 +68,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
 
                  />
            </label>
-
+           <br />
            <label htmlFor="terms">
            Do you agree to the terms and conditions?
                <input
@@ -78,6 +80,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
 
                 />
            </label> 
+           <br />
            <Link to ="/Something"> <button disabled={disabled} >Sing Up</button></Link>
 
            <div className='errors'>
@@ -91,3 +94,5 @@ export default function Register ({values, update, submit, disabled, errors, inp
        </form>
     )
 }
+
+
