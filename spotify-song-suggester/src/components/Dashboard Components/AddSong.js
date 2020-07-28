@@ -5,6 +5,7 @@ const initialUrl = "";
 
 const AddSong = () => {
   const [songUrl, setSongUrl] = useState(initialUrl);
+  const [songData, setSongData] = useState();
 
   const onChange = (event) => {
     setSongUrl(event.target.value);
@@ -22,6 +23,7 @@ const AddSong = () => {
       .get(`${spotifyID}`)
       .then((res) => {
         console.log("SPOTIFY RESPONSE:", res);
+        setSongData(res.data);
       })
       .catch((err) => {
         console.log("SPOTIFY ERROR:", err);
@@ -38,6 +40,15 @@ const AddSong = () => {
         </p>
         <input type="url" value={songUrl} onChange={onChange}></input>
         <button type="submit">Add Song</button>
+
+        {!songData ? null : (
+          <div className="add-song-response-body">
+            <img src={songData.album.images[1].url} alt={songData.album.name} />
+            <h4>{songData.name}</h4>
+            <h4>{songData.artists[0].name}</h4>
+            <embed src={songData.preview_url} />
+          </div>
+        )}
       </form>
     </div>
   );
