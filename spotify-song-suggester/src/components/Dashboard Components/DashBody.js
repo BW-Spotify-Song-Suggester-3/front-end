@@ -6,7 +6,7 @@ import AddSong from "./AddSong";
 import AddMood from "./AddMood";
 
 const DashBody = () => {
-  const { path, url } = useRouteMatch();
+  const { path } = useRouteMatch();
 
   return (
     <div className="dashboard-body">

@@ -1,54 +1,78 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Slider from "@material-ui/core/Slider";
+import React, { useState } from "react";
 
-const useStyles = makeStyles({
-  root: {
-    width: 300,
-  },
-});
-
-const marks = [
+const initialMood = [
   {
-    value: 0,
-    label: "Low",
+    mood: "Danceability",
+    value: "low",
   },
   {
-    value: 50,
-    label: "Medium",
+    mood: "Energy",
+    value: "low",
   },
   {
-    value: 100,
-    label: "High",
+    mood: "Speechiness",
+    value: "low",
+  },
+  {
+    mood: "Acousticness",
+    value: "low",
+  },
+  {
+    mood: "Liveness",
+    value: "low",
+  },
+  {
+    mood: "Valence",
+    value: "low",
+  },
+  {
+    mood: "Tempo",
+    value: "low",
   },
 ];
 
-function valuetext(value) {
-  return `${value}°C`;
-}
-
-function valueLabelFormat(value) {
-  return marks.findIndex((mark) => mark.value === value) + 1;
-}
+const moodCreated = [];
 
 export default function Sliders() {
-  const classes = useStyles();
+  const [moodValues, setMoodValues] = useState(moodCreated);
+
+  const changeHandler = (event) => {
+    console.log("Change Handler Reached", event.target.mood);
+    // const newMood = initialMood.map((mood) =>
+    //   event.target.name === mood.name
+    //     ? { name: event.target.name, value: event.target.value }
+    //     : { name: mood.name, value: mood.value }
+    // );
+
+    setMoodValues([
+      ...moodValues,
+      { mood: event.target.name, value: event.target.value },
+    ]);
+
+    // setMoodValues(newMood);
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    console.log("MOOD VALUES:", moodValues);
+  };
 
   return (
-    <div className={classes.root}>
-      <Typography id="discrete-slider-restrict" gutterBottom>
-        Restricted values
-      </Typography>
-      <Slider
-        defaultValue={20}
-        valueLabelFormat={valueLabelFormat}
-        getAriaValueText={valuetext}
-        aria-labelledby="discrete-slider-restrict"
-        step={null}
-        valueLabelDisplay="auto"
-        marks={marks}
-      />
+    <div className="add-mood-form">
+      <form onSubmit={submitHandler}>
+        {initialMood.map((mood) => (
+          <div key={mood.mood}>
+            <h3>{mood.mood}</h3>
+            <select name={mood.mood} onChange={changeHandler}>
+              <option value=""></option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        ))}
+        <button type="submit">Add Mood</button>
+      </form>
     </div>
   );
 }
