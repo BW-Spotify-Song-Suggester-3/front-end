@@ -12,11 +12,11 @@ export const axiosWithAuthSpotify = () => {
 };
 
 export const axiosWithAuth = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
   return axios.create({
-    baseURL: "http://localhost:5001/api/",
+    baseURL: "https://tjs-songsuggest.herokuapp.com/",
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   });
 };

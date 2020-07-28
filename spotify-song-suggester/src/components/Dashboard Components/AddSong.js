@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { axiosWithAuthSpotify } from "../utils/axiosWithAuth";
+import { axiosWithAuthSpotify, axiosWithAuth } from "../utils/axiosWithAuth";
+import { connect } from "react-redux";
+import { saveSongAPI } from "../APIs/saveSongAPI";
 
 const initialUrl = "";
 
-const AddSong = () => {
+const AddSong = (props) => {
   const [songUrl, setSongUrl] = useState(initialUrl);
   const [songData, setSongData] = useState();
+  const ID = props.userData.userid;
 
   const onChange = (event) => {
     setSongUrl(event.target.value);
   };
-  // https://open.spotify.com/track/1Hd2XLitkt1PYCWSbfF5qV?si=_kJzDZvrQ_ukzzXtwi7KKg
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -30,6 +32,10 @@ const AddSong = () => {
       });
   };
 
+  const saveSong = (songData, userID) => {
+    saveSongAPI(songData, userID);
+  };
+
   return (
     <div className="add-song-body">
       <form onSubmit={onSubmit}>
@@ -39,7 +45,7 @@ const AddSong = () => {
           right, and then click Share and Copy Song Link
         </p>
         <input type="url" value={songUrl} onChange={onChange}></input>
-        <button type="submit">Add Song</button>
+        <button type="submit">Search for Song</button>
 
         {!songData ? null : (
           <div className="add-song-response-body">
@@ -47,6 +53,9 @@ const AddSong = () => {
             <h4>{songData.name}</h4>
             <h4>{songData.artists[0].name}</h4>
             <embed src={songData.preview_url} />
+            <div onClick={() => saveSong(songData, ID)}>
+              Add Song To Favorites
+            </div>
           </div>
         )}
       </form>
@@ -54,4 +63,10 @@ const AddSong = () => {
   );
 };
 
-export default AddSong;
+const mapsStateToProps = (state) => {
+  return {
+    userData: state.userData,
+  };
+};
+
+export default connect(mapsStateToProps, {})(AddSong);

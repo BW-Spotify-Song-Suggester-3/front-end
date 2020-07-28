@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useRouteMatch, useHistory } from "react-router-dom";
-import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { logInAction } from "./Actions/spotifyActions";
 
 const LogInUserNames = {
   name: "user",
@@ -16,36 +17,11 @@ const LoginInitailValue = {
 
 const initialDisabled = true;
 
-export default function LogIn() {
+function LogIn(props) {
   const [userLogin, setUserLogin] = useState(LoginInitailValue);
   const [disabled, setDisabled] = useState(initialDisabled);
+  const [userId, setUserId] = useState("swag");
   const history = useHistory();
-
-  const postUser = () => {
-    axios
-      .post(
-        "https://tjs-songsuggest.herokuapp.com/login",
-        `grant_type=password&username=${userLogin.LogInName}&password=${userLogin.LogInPassword}`,
-        {
-          headers: {
-            // btoa is converting our client id/client secret into base64
-            Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
-      .then((res) => {
-        window.localStorage.setItem("access_token", res.data.access_token);
-        history.push("/dashboard");
-        console.log("API Response:", res);
-      })
-      .catch((err) => {
-        console.log("Post error:", err);
-      })
-      .finally(() => {
-        console.log("post request done");
-      });
-  };
 
   const validation = () => {
     if (
@@ -65,7 +41,8 @@ export default function LogIn() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    postUser();
+    props.logInAction(userLogin);
+    history.push("/dashboard");
   };
 
   return (
@@ -93,7 +70,15 @@ export default function LogIn() {
           onChange={onChange}
         />
       </label>
-      <button type="submit">LogIn</button>
+      <button type="submit">Log In</button>
     </form>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userData: state.userData,
+  };
+};
+
+export default connect(mapStateToProps, { logInAction })(LogIn);
