@@ -20,7 +20,8 @@ export default function Register ({values, update, submit, disabled, errors, inp
     return (
        <form onSubmit={onSubmit}>
            <label htmlFor="name">
-               Username: 
+           <div> Username </div>
+               <div className="ui input">
                <input
                     type= "text"
                     name="name"
@@ -29,10 +30,13 @@ export default function Register ({values, update, submit, disabled, errors, inp
                     value={values.name}
                     onChange={onChange}
                 />
+                </div>
            </label>
            <br />
+           
            <label htmlFor="email">
-           Email:
+           <div>Email</div>
+           <div className="ui input">
                <input
                 type="email"
                 name="email"
@@ -41,10 +45,13 @@ export default function Register ({values, update, submit, disabled, errors, inp
                 value={values.email}
                 onChange={onChange}
                 />
+                </div>
            </label>
             <br />
            <label htmlFor="password">
-           Password:
+           <div>Password</div>
+           
+           <div className="ui input">
                <input
                     type="password"
                     name="password"
@@ -54,10 +61,13 @@ export default function Register ({values, update, submit, disabled, errors, inp
                     onChange={onChange}
 
                  />
+                 </div>
            </label>
            <br />
            <label htmlFor="conPassword">
-           Confirm Your Password:
+           <div>Confirm Your Password</div>
+           
+           <div className="ui input">
                 <input
                     type="password"
                     name="conPassword"
@@ -67,6 +77,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
                     onChange={onChange}
 
                  />
+                 </div>
            </label>
            <br />
            <label htmlFor="terms">
