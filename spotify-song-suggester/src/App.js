@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, Route} from "react-router-dom"
 import axios from "axios"
+import * as yup from "yup"
 
 import './App.css';
 import LogIn from "./components/LogIn"
 import Register from "./components/Register"
 import Something from "./components/Something"
+import formSchema from "./validation/formSchema"
 
 const formInitialValue = {
   name: "",
@@ -16,11 +18,23 @@ const formInitialValue = {
 }
 
 
+const initialFormErrors ={
+  name: "",
+  email: "",
+  password: "",
+  conPassword: "",
+  terms: ""
+}
+
 const usersInitialValue = []
+const initialDisabled = true
 
 function App() {
   const [form, setForm] = useState(formInitialValue)
   const [ users, setUsers] = useState(usersInitialValue)
+
+  const [formErrors, setFormErrors] = useState(initialFormErrors)
+  const [disabled, setDisabled] = useState(initialDisabled)
 
   const formValueHandler = (name, value) => {
     setForm({...form, [name]: value})
@@ -49,7 +63,46 @@ function App() {
     //send this information to the function that post to axios
     postUsers(newUser)
   }
+
+
+  // validation
+
+  const inputChange = (name, value) => {
+    
+    yup
+      .reach(formSchema, name)
+      //we can then run validate using the value
+      .validate(value)
+      // if the validation is successful, we can clear the error message
+      .then(valid => {
+        setFormErrors({
+          ...formErrors,
+          [name]: "",
+        })
+      })
+      /* if the validation is unsuccessful, we can set the error message to the message 
+        returned from yup (that we created in our schema) */
+      .catch(err => {
+        setFormErrors({
+          ...formErrors,
+          [name]: err.errors[0],
+        })
+      })
+
+    setForm({
+      ...form,
+      [name]: value 
+    })
+  }
   
+  useEffect(() => {
+    
+    formSchema.isValid(form).then(valid => {
+      setDisabled(!valid)
+    })
+  }, [form])
+
+
   return (
     <div>
       <Route exact path="/">
@@ -65,6 +118,9 @@ function App() {
           update={formValueHandler}
           values={form}
           submit={submit}
+          disabled={disabled}
+          errors={formErrors}
+          inputChange={inputChange}
          />
       </Route>
 
