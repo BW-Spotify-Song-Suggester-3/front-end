@@ -1,25 +1,14 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Route } from "react-router-dom";
 import axios from "axios";
+import * as yup from "yup";
 
 import "./App.css";
 import LogIn from "./components/LogIn";
 import Register from "./components/Register";
 import Something from "./components/Something";
+import formSchema from "./validation/formSchema";
 import Dashboard from "./components/Dashboard Components/Dashboard";
-=======
-import React, {useState, useEffect} from 'react';
-import {Link, Route} from "react-router-dom"
-import axios from "axios"
-import * as yup from "yup"
-
-import './App.css';
-import LogIn from "./components/LogIn"
-import Register from "./components/Register"
-import Something from "./components/Something"
-import formSchema from "./validation/formSchema"
->>>>>>> b52280dec145ab7962b2b86527053eb6c6c2d109
 
 const formInitialValue = {
   name: "",
@@ -29,27 +18,23 @@ const formInitialValue = {
   terms: false,
 };
 
-<<<<<<< HEAD
-const usersInitialValue = [];
-=======
-const initialFormErrors ={
+const initialFormErrors = {
   name: "",
   email: "",
   password: "",
   conPassword: "",
-  terms: ""
-}
+  terms: "",
+};
 
-const usersInitialValue = []
-const initialDisabled = true
->>>>>>> b52280dec145ab7962b2b86527053eb6c6c2d109
+const usersInitialValue = [];
+const initialDisabled = true;
 
 function App() {
   const [form, setForm] = useState(formInitialValue);
   const [users, setUsers] = useState(usersInitialValue);
 
-  const [formErrors, setFormErrors] = useState(initialFormErrors)
-  const [disabled, setDisabled] = useState(initialDisabled)
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
   const formValueHandler = (name, value) => {
     setForm({ ...form, [name]: value });
@@ -73,52 +58,43 @@ function App() {
       terms: form.terms,
     };
     //send this information to the function that post to axios
-<<<<<<< HEAD
     postUsers(newUser);
   };
-=======
-    postUsers(newUser)
-  }
-
 
   // validation
 
   const inputChange = (name, value) => {
-    
     yup
       .reach(formSchema, name)
       //we can then run validate using the value
       .validate(value)
       // if the validation is successful, we can clear the error message
-      .then(valid => {
+      .then((valid) => {
         setFormErrors({
           ...formErrors,
           [name]: "",
-        })
+        });
       })
       /* if the validation is unsuccessful, we can set the error message to the message 
         returned from yup (that we created in our schema) */
-      .catch(err => {
+      .catch((err) => {
         setFormErrors({
           ...formErrors,
           [name]: err.errors[0],
-        })
-      })
+        });
+      });
 
     setForm({
       ...form,
-      [name]: value 
-    })
-  }
-  
-  useEffect(() => {
-    
-    formSchema.isValid(form).then(valid => {
-      setDisabled(!valid)
-    })
-  }, [form])
+      [name]: value,
+    });
+  };
 
->>>>>>> b52280dec145ab7962b2b86527053eb6c6c2d109
+  useEffect(() => {
+    formSchema.isValid(form).then((valid) => {
+      setDisabled(!valid);
+    });
+  }, [form]);
 
   return (
     <div>
@@ -129,22 +105,16 @@ function App() {
       </Route>
 
       <Route path="/Register">
-<<<<<<< HEAD
         ALready have an Acout?
         <Link to="/">Login</Link>
-        <Register update={formValueHandler} values={form} submit={submit} />
-=======
-      ALready have an Acout?
-      <Link to="/">Login</Link>
-        <Register 
+        <Register
           update={formValueHandler}
           values={form}
           submit={submit}
           disabled={disabled}
           errors={formErrors}
           inputChange={inputChange}
-         />
->>>>>>> b52280dec145ab7962b2b86527053eb6c6c2d109
+        />
       </Route>
 
       <Link to="/dashboard">Dashboard</Link>
