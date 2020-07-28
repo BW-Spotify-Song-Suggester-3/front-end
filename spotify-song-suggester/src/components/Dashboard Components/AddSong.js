@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axiosWithAuthSpotify } from "../utils/axiosWithAuthSpotify";
+import { axiosWithAuthSpotify } from "../utils/axiosWithAuth";
 
 const initialUrl = "";
 
