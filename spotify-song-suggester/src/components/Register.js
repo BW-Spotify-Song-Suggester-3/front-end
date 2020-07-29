@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 
 
 
+
+
 export default function Register ({values, update, submit, disabled, errors, inputChange}) {
     
 
@@ -18,9 +20,13 @@ export default function Register ({values, update, submit, disabled, errors, inp
     }
 
     return (
+        <div className="margin">
+        <div className="ui placeholder segment bigBox">
+  <div className="flexBox">
+     <div className="formStyle">
        <form onSubmit={onSubmit}>
            <label htmlFor="name">
-           <div> Username </div>
+           <div className="labelName"> Username </div>
                <div className="ui input">
                <input
                     type= "text"
@@ -35,7 +41,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
            <br />
            
            <label htmlFor="email">
-           <div>Email</div>
+           <div className="labelName" >Email</div>
            <div className="ui input">
                <input
                 type="email"
@@ -49,7 +55,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
            </label>
             <br />
            <label htmlFor="password">
-           <div>Password</div>
+           <div className="labelName" >Password</div>
            
            <div className="ui input">
                <input
@@ -65,7 +71,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
            </label>
            <br />
            <label htmlFor="conPassword">
-           <div>Confirm Your Password</div>
+           <div className="labelName" >Confirm Your Password</div>
            
            <div className="ui input">
                 <input
@@ -80,8 +86,11 @@ export default function Register ({values, update, submit, disabled, errors, inp
                  </div>
            </label>
            <br />
+           <div className="labelName">
            <label htmlFor="terms">
-           Do you agree to the terms and conditions?
+           <span className="termsLabel">Do you agree to the terms and conditions?&nbsp;&nbsp;</span>
+           
+           
                <input
                     type="checkbox"
                     name="terms"
@@ -91,9 +100,12 @@ export default function Register ({values, update, submit, disabled, errors, inp
 
                 />
            </label> 
+           </div>
+           
            <br />
-           <Link to ="/Something"> <button disabled={disabled} >Sing Up</button></Link>
+           <Link to ="/Something" > <button className="green" disabled={disabled} >Sing Up</button></Link>
 
+  
            <div className='errors'>
                 <div>{errors.name}</div>
                 <div>{errors.email}</div>
@@ -103,6 +115,13 @@ export default function Register ({values, update, submit, disabled, errors, inp
            </div>
            
        </form>
+       </div>
+       </div>
+       </div>
+       ALready have an Acout?&nbsp;&nbsp;
+        <Link to="/">Login</Link>
+       </div>
+       
     )
 }
 

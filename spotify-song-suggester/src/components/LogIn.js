@@ -47,7 +47,7 @@ export default function LogIn () {
     return(
 
 
-
+        <div className="margin">
     <div className="ui placeholder segment">
   <div className="ui two column very relaxed stackable grid">
 
@@ -115,6 +115,7 @@ export default function LogIn () {
 
 
   </div>
+</div>
 </div>
     )
 }

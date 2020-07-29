@@ -105,8 +105,7 @@ function App() {
       </Route>
 
       <Route path="/Register">
-        ALready have an Acout?
-        <Link to="/">Login</Link>
+       
         <Register
           update={formValueHandler}
           values={form}
