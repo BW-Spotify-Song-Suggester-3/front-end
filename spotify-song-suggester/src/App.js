@@ -42,12 +42,23 @@ function App() {
 
   const postUsers = (newUser) => {
     axios
-      .post("https://reqres.in/api/users", newUser)
+      .post(
+        "https://tjs-songsuggest.herokuapp.com/login",
+        `grant_type=password&username=${newUser.name}&password=${newUser.password}`,
+        {
+          headers: {
+            // btoa is converting our client id/client secret into base64
+            Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
       .then((res) => {
+        console.log("sign up response:", res);
         setForm(formInitialValue);
         setUsers([...users, res.data]);
       })
-      .catch(() => console.log("axios.post err"));
+      .catch((err) => console.log("axios.post err", err));
   };
 
   const submit = () => {
@@ -55,7 +66,7 @@ function App() {
       name: form.name.trim(),
       email: form.email.trim(),
       password: form.password.trim(),
-      terms: form.terms,
+      // terms: form.terms,
     };
     //send this information to the function that post to axios
     postUsers(newUser);
