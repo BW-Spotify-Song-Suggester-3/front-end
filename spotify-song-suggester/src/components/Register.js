@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 
 
 
+
 export default function Register ({values, update, submit, disabled, errors, inputChange}) {
     
 
@@ -20,7 +21,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
     }
 
     return (
-        <div className="margin">
+        <div className="margin2">
         <div className="ui placeholder segment bigBox">
   <div className="flexBox">
      <div className="formStyle">
@@ -120,6 +121,8 @@ export default function Register ({values, update, submit, disabled, errors, inp
        </div>
        ALready have an Acout?&nbsp;&nbsp;
         <Link to="/">Login</Link>
+
+
        </div>
        
     )
