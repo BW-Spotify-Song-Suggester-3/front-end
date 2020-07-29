@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { logInAction } from "./Actions/spotifyActions";
+import axios from "axios";
 
 const LogInUserNames = {
   name: "user",
@@ -41,8 +42,28 @@ function LogIn(props) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    props.logInAction(userLogin);
-    history.push("/dashboard");
+
+    axios
+      .post(
+        "https://tjs-songsuggest.herokuapp.com/login",
+        `grant_type=password&username=${userLogin.LogInName}&password=${userLogin.LogInPassword}`,
+        {
+          headers: {
+            // btoa is converting our client id/client secret into base64
+            Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((res) => {
+        window.localStorage.setItem("access_token", res.data.access_token);
+        console.log("Log in response:", res);
+        history.push("/dashboard");
+        props.logInAction();
+      })
+      .catch((err) => {
+        console.log("Log in error:", err);
+      });
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axiosWithAuthSpotify, axiosWithAuth } from "../utils/axiosWithAuth";
+import { axiosWithAuthSpotify } from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { saveSongAPI } from "../APIs/saveSongAPI";
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Route } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import * as yup from "yup";
 
@@ -9,6 +9,7 @@ import Register from "./components/Register";
 import Something from "./components/Something";
 import formSchema from "./validation/formSchema";
 import Dashboard from "./components/Dashboard Components/Dashboard";
+import PrivateRoute from "./components/PrivateRoute";
 
 const formInitialValue = {
   name: "",
@@ -98,33 +99,30 @@ function App() {
 
   return (
     <div>
-      <Route exact path="/">
-        Don't have an Acount?
-        <Link to="/Register">Register</Link>
-        <LogIn />
-      </Route>
+      <Switch>
+        <Route exact path="/">
+          Don't have an Acount?
+          <Link to="/Register">Register</Link>
+          <LogIn />
+        </Route>
 
-      <Route path="/Register">
-        ALready have an Acout?
-        <Link to="/">Login</Link>
-        <Register
-          update={formValueHandler}
-          values={form}
-          submit={submit}
-          disabled={disabled}
-          errors={formErrors}
-          inputChange={inputChange}
-        />
-      </Route>
+        <Route path="/Register">
+          ALready have an Acout?
+          <Link to="/">Login</Link>
+          <Register
+            update={formValueHandler}
+            values={form}
+            submit={submit}
+            disabled={disabled}
+            errors={formErrors}
+            inputChange={inputChange}
+          />
+        </Route>
+
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      </Switch>
 
       <Link to="/dashboard">Dashboard</Link>
-
-      <Route path="/Something">
-        <Something />
-      </Route>
-      <Route path="/dashboard">
-        <Dashboard />
-      </Route>
     </div>
   );
 }

@@ -13,7 +13,7 @@ const FavSongs = (props) => {
         setFavSongs(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [props.userData]);
 
   if (favSongs.length === 0) {
     return null;
