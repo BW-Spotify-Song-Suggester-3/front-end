@@ -2,6 +2,10 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 
+
+
+
+
 export default function Register ({values, update, submit, disabled, errors, inputChange}) {
     
 
@@ -9,6 +13,8 @@ export default function Register ({values, update, submit, disabled, errors, inp
         const {name, value, type, checked} = event.target
         type === "checkbox" ? update(name, checked) : update(name, value)
         type === "checkbox" ? inputChange(name, checked) : inputChange(name, value)
+
+        
     }
 
     const onSubmit = (event) => {
@@ -17,9 +23,14 @@ export default function Register ({values, update, submit, disabled, errors, inp
     }
 
     return (
+        <div className="margin2">
+        <div className="ui placeholder segment bigBox">
+  <div className="flexBox">
+     <div className="formStyle">
        <form onSubmit={onSubmit}>
            <label htmlFor="name">
-               Username: 
+           <div className="labelName"> Username </div>
+               <div className="ui input">
                <input
                     type= "text"
                     name="name"
@@ -28,10 +39,13 @@ export default function Register ({values, update, submit, disabled, errors, inp
                     value={values.name}
                     onChange={onChange}
                 />
+                </div>
            </label>
-
+           <br />
+           
            <label htmlFor="email">
-           Email:
+           <div className="labelName" >Email</div>
+           <div className="ui input">
                <input
                 type="email"
                 name="email"
@@ -40,10 +54,13 @@ export default function Register ({values, update, submit, disabled, errors, inp
                 value={values.email}
                 onChange={onChange}
                 />
+                </div>
            </label>
-
+            <br />
            <label htmlFor="password">
-           Password:
+           <div className="labelName" >Password</div>
+           
+           <div className="ui input">
                <input
                     type="password"
                     name="password"
@@ -53,9 +70,13 @@ export default function Register ({values, update, submit, disabled, errors, inp
                     onChange={onChange}
 
                  />
+                 </div>
            </label>
+           <br />
            <label htmlFor="conPassword">
-           Confirm Your Password:
+           <div className="labelName" >Confirm Your Password</div>
+           
+           <div className="ui input">
                 <input
                     type="password"
                     name="conPassword"
@@ -65,10 +86,14 @@ export default function Register ({values, update, submit, disabled, errors, inp
                     onChange={onChange}
 
                  />
+                 </div>
            </label>
-
+           <br />
+           <div className="labelName">
            <label htmlFor="terms">
-           Do you agree to the terms and conditions?
+           <span className="termsLabel">Do you agree to the terms and conditions?&nbsp;&nbsp;</span>
+           
+           
                <input
                     type="checkbox"
                     name="terms"
@@ -78,16 +103,34 @@ export default function Register ({values, update, submit, disabled, errors, inp
 
                 />
            </label> 
-           <Link to ="/Something"> <button disabled={disabled} >Sing Up</button></Link>
+           </div>
+           
+           <br />
+           <Link to ="/Something" > <button className="green" disabled={disabled} >Sign Up</button></Link>
 
+  
            <div className='errors'>
                 <div>{errors.name}</div>
                 <div>{errors.email}</div>
                 <div>{errors.password}</div>
-                <div>{errors.conPassword}</div>
+                
+                <div>{values.conPassword === values.password ? errors.conPassword = "": errors.conPassword}</div>
                 <div>{errors.terms}</div>
            </div>
            
        </form>
-    )
+       </div>
+       </div>
+       </div>
+       ALready have an Account?&nbsp;&nbsp;
+        <Link to="/">Login</Link>
+
+        
+    
+       </div>
+     ) 
 }
+
+
+
+
