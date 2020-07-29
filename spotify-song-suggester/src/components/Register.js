@@ -104,7 +104,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
            </div>
            
            <br />
-           <Link to ="/Something" > <button className="green" disabled={disabled} >Sing Up</button></Link>
+           <Link to ="/Something" > <button className="green" disabled={disabled} >Sign Up</button></Link>
 
   
            <div className='errors'>
@@ -119,7 +119,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
        </div>
        </div>
        </div>
-       ALready have an Acout?&nbsp;&nbsp;
+       ALready have an Account?&nbsp;&nbsp;
         <Link to="/">Login</Link>
 
 
@@ -127,5 +127,7 @@ export default function Register ({values, update, submit, disabled, errors, inp
        
     )
 }
+
+
 
 
