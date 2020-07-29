@@ -6,7 +6,6 @@ import * as yup from "yup";
 import "./App.css";
 import LogIn from "./components/LogIn";
 import Register from "./components/Register";
-import Something from "./components/Something";
 import formSchema from "./validation/formSchema";
 import Dashboard from "./components/Dashboard Components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
@@ -119,10 +118,8 @@ function App() {
           />
         </Route>
 
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
       </Switch>
-
-      <Link to="/dashboard">Dashboard</Link>
     </div>
   );
 }

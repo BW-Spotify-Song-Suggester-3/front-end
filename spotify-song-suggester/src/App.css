@@ -1,3 +1,7 @@
+* {
+  border: 1px solid red;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +39,55 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.dashboard-body {
+  margin: 5%;
+  box-sizing: border-box;
+}
+
+.fav-songs-card {
+  margin: 5% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.song-cards {
+  margin: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 304px;
+}
+
+.song-preview {
+  height: 50px;
+  width: 50%;
+}
+
+.info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 90%;
+}
+
+.action-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.album-covers {
+  width: 200px;
+  height: 200px;
 }

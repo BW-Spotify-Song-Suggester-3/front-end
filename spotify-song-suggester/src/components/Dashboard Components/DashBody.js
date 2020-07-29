@@ -6,6 +6,7 @@ import AddSong from "./AddSong";
 import AddMood from "./AddMood";
 import Moods from "./Moods";
 import FavSongs from "./FavSongs";
+import Suggestions from "./Suggestions";
 
 const DashBody = () => {
   const { path } = useRouteMatch();
@@ -18,8 +19,9 @@ const DashBody = () => {
           <FavSongs />
           <Moods />
         </Route>
-        <Route path={`${path}/addsong`} component={AddSong} />
-        <Route path={`${path}/addmood`} component={AddMood} />
+        <Route exact path={`${path}/addsong`} component={AddSong} />
+        <Route exact path={`${path}/addmood`} component={AddMood} />
+        <Route path={`${path}/suggestions/:id`} component={Suggestions} />
       </Switch>
     </div>
   );

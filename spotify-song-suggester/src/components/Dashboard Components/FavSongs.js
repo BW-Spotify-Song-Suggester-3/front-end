@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
+import { Link, useRouteMatch } from "react-router-dom";
 
 const FavSongs = (props) => {
   const [favSongs, setFavSongs] = useState([]);
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     axiosWithAuth()
@@ -15,15 +17,42 @@ const FavSongs = (props) => {
       .catch((err) => console.log(err));
   }, [props.userData]);
 
-  if (favSongs.length === 0) {
+  const deleteSong = (songId) => {
+    axiosWithAuth()
+      .delete(`songs/delete/song/${songId}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
+  if (favSongs.length < 1) {
     return null;
   } else {
     return (
-      <div>
+      <div className="fav-songs-card">
         {favSongs.map((song) => (
-          <p key={song.spotifyid}>
-            {song.name} and {song.artist}
-          </p>
+          <div key={song.spotifyid} className="song-cards">
+            <img
+              src={song.albumcover}
+              alt={song.album}
+              className="album-covers"
+            />
+            <div className="info-container">
+              <div className="info-box">
+                <div className="title">{song.name}</div>
+                <div className="artist">{song.artist}</div>
+              </div>
+              <div className="action-box">
+                <div onClick={() => deleteSong(song.songid)}>
+                  Remove from Favs
+                </div>
+                <Link to={`${url}/suggestions/${song.spotifyid}`}>
+                  See Suggestions
+                </Link>
+              </div>
+
+              <embed src={song.previewurl} className="song-preview" />
+            </div>
+          </div>
         ))}
       </div>
     );

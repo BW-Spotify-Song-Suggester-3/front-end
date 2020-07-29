@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { axiosWithAuthSpotify } from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { saveSongAPI } from "../APIs/saveSongAPI";
+import { useHistory } from "react-router-dom";
 
 const initialUrl = "";
 
@@ -9,6 +10,7 @@ const AddSong = (props) => {
   const [songUrl, setSongUrl] = useState(initialUrl);
   const [songData, setSongData] = useState();
   const ID = props.userData;
+  const history = useHistory();
 
   const onChange = (event) => {
     setSongUrl(event.target.value);
@@ -34,6 +36,7 @@ const AddSong = (props) => {
 
   const saveSong = (songData, userID) => {
     saveSongAPI(songData, userID);
+    setTimeout(() => history.push("/dashboard"), 2500);
   };
 
   return (
