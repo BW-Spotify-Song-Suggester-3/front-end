@@ -13,6 +13,8 @@ export default function Register ({values, update, submit, disabled, errors, inp
         const {name, value, type, checked} = event.target
         type === "checkbox" ? update(name, checked) : update(name, value)
         type === "checkbox" ? inputChange(name, checked) : inputChange(name, value)
+
+        
     }
 
     const onSubmit = (event) => {
@@ -111,7 +113,8 @@ export default function Register ({values, update, submit, disabled, errors, inp
                 <div>{errors.name}</div>
                 <div>{errors.email}</div>
                 <div>{errors.password}</div>
-                <div>{errors.conPassword}</div>
+                
+                <div>{values.conPassword === values.password ? errors.conPassword = "": errors.conPassword}</div>
                 <div>{errors.terms}</div>
            </div>
            
@@ -122,10 +125,10 @@ export default function Register ({values, update, submit, disabled, errors, inp
        ALready have an Account?&nbsp;&nbsp;
         <Link to="/">Login</Link>
 
-
+        
+    
        </div>
-       
-    )
+     ) 
 }
 
 
