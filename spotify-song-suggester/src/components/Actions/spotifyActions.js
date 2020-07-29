@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { axiosWithAuth, axiosWithAuthSpotify } from "../utils/axiosWithAuth";
 
 export const logInAction = () => (dispatch) => {
   dispatch({ type: "LOG_IN" });
@@ -12,4 +12,20 @@ export const logInAction = () => (dispatch) => {
     .catch((err) => {
       console.log("USER LIST ERR:", err);
     });
+};
+
+export const predictionsAction = (suggestions) => (dispatch) => {
+  suggestions.map((suggestion) => {
+    axiosWithAuthSpotify()
+      .get(suggestion)
+      .then((res) => {
+        console.log("SPOTIFY RESPONSE:", res);
+        dispatch({ type: "STORE_PREDICTIONS", payload: res.data });
+        // setSuggestionsData([suggestionsData.push(res.data)]);
+        // console.log("Suggestions Data:", suggestionsData);
+      })
+      .catch((err) => {
+        console.log("SPOTIFY ERROR:", err);
+      });
+  });
 };

@@ -1,6 +1,6 @@
 const initialUserState = {
   userData: 4,
-  favoriteSongs: "",
+  recommendedSongs: [],
 };
 
 export const spotifyReducer = (state = initialUserState, action) => {
@@ -16,6 +16,13 @@ export const spotifyReducer = (state = initialUserState, action) => {
       return {
         ...state,
         userData: action.payload[0].userid,
+      };
+
+    case "STORE_PREDICTIONS":
+      console.log("Store predictions reducer reached:", action.payload);
+      return {
+        ...state,
+        recommendedSongs: [...state.recommendedSongs, action.payload],
       };
 
     default:
