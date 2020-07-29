@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import { axiosWithAuthSpotify } from "../utils/axiosWithAuthSpotify";
+import { axiosWithAuthSpotify } from "../utils/axiosWithAuth";
+import { connect } from "react-redux";
+import { saveSongAPI } from "../APIs/saveSongAPI";
+import { useHistory } from "react-router-dom";
 
 const initialUrl = "";
 
-const AddSong = () => {
+const AddSong = (props) => {
   const [songUrl, setSongUrl] = useState(initialUrl);
   const [songData, setSongData] = useState();
+  const [loading, toggleLoading] = useState(false);
+  const ID = props.userData;
+  const history = useHistory();
 
   const onChange = (event) => {
     setSongUrl(event.target.value);
   };
-  // https://open.spotify.com/track/1Hd2XLitkt1PYCWSbfF5qV?si=_kJzDZvrQ_ukzzXtwi7KKg
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -30,28 +35,64 @@ const AddSong = () => {
       });
   };
 
-  return (
-    <div className="add-song-body">
-      <form onSubmit={onSubmit}>
-        <h3>Paste Spotify URL to Add a Song </h3>
-        <p>
-          Go to your favorite song on spotify, click the three dots on the right
-          right, and then click Share and Copy Song Link
-        </p>
-        <input type="url" value={songUrl} onChange={onChange}></input>
-        <button type="submit">Add Song</button>
+  const saveSong = (songData, userID) => {
+    saveSongAPI(songData, userID);
+    toggleLoading(true);
+    setTimeout(() => history.push("/dashboard"), 2500);
+  };
 
-        {!songData ? null : (
-          <div className="add-song-response-body">
-            <img src={songData.album.images[1].url} alt={songData.album.name} />
-            <h4>{songData.name}</h4>
-            <h4>{songData.artists[0].name}</h4>
-            <embed src={songData.preview_url} />
-          </div>
-        )}
-      </form>
-    </div>
-  );
+  if (loading === true) {
+    return (
+      <div>
+        <h1>adding song...</h1>
+      </div>
+    );
+  } else {
+    return (
+      <div className="add-song-body">
+        <form onSubmit={onSubmit} className="add-song-form">
+          <h3>Paste Spotify URL to Add a Song </h3>
+          <p>
+            Go to your favorite song on spotify, click the three dots on the
+            right right, and then click Share and Copy Song Link
+          </p>
+          <input type="url" value={songUrl} onChange={onChange}></input>
+          <button type="submit" className="add-song-button">
+            Search for Song
+          </button>
+
+          {!songData ? null : (
+            <div className="fav-songs-card">
+              <div key={songData.spotifyid} className="song-cards">
+                <img
+                  src={songData.album.images[0].url}
+                  alt={songData.album.name}
+                  className="album-covers"
+                />
+                <div className="info-container">
+                  <div className="info-box">
+                    <div className="title">{songData.name}</div>
+                    <div className="artist">{songData.artists[0].name}</div>
+                  </div>
+                  <div onClick={() => saveSong(songData, ID)}>
+                    Add Song To Favorites
+                  </div>
+
+                  <embed src={songData.preview_url} className="song-preview" />
+                </div>
+              </div>
+            </div>
+          )}
+        </form>
+      </div>
+    );
+  }
 };
 
-export default AddSong;
+const mapsStateToProps = (state) => {
+  return {
+    userData: state.userData,
+  };
+};
+
+export default connect(mapsStateToProps, {})(AddSong);

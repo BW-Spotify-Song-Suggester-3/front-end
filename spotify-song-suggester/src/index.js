@@ -1,17 +1,27 @@
-import React from 'react';
-import {BrowserRouter} from "react-router-dom"
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import { spotifyReducer } from "./Reducers/spotifyReducer";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
+
+let store = createStore(spotifyReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
   <BrowserRouter>
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
