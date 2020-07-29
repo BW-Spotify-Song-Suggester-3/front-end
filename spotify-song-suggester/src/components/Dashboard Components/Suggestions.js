@@ -85,9 +85,7 @@ const Suggestions = (props) => {
             </div>
           </div>
         </div> */}
-        {suggestionsData.map((suggestion) => (
-          <SuggestionCards suggestionsData={suggestion} />
-        ))}
+        <SuggestionCards />
         {/* <button onClick={callPredictor}>Call Predictor</button> */}
         <button onClick={getSuggestions}>Render Suggestions</button>
       </div>
