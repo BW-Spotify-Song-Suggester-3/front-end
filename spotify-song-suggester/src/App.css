@@ -78,6 +78,7 @@
   flex-direction: column;
   justify-content: flex-start;
   width: 90%;
+  text-align: center;
 }
 
 .action-box {
@@ -90,4 +91,20 @@
 .album-covers {
   width: 200px;
   height: 200px;
+}
+
+.add-song-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.add-song-button {
+  width: 150px;
+  margin: 1.5% auto;
+}
+
+input {
+  text-align: center;
 }
