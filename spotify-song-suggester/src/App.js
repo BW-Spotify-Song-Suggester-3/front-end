@@ -99,14 +99,13 @@ function App() {
   return (
     <div>
       <Route exact path="/">
-        Don't have an Acount?
-        <Link to="/Register">Register</Link>
+        {/* Don't have an Acount? */}
+        {/* <Link to="/Register">Register</Link> */}
         <LogIn />
       </Route>
 
       <Route path="/Register">
-        ALready have an Acout?
-        <Link to="/">Login</Link>
+       
         <Register
           update={formValueHandler}
           values={form}

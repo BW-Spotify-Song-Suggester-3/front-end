@@ -1,12 +1,12 @@
 import React, {useState} from "react"
 import { Link } from "react-router-dom"
 
-const LogInUserNames = {name: "user", email: "user@gmail.com", password: "user123" }
 
- const LoginInitailValue = {
-    LogInName: "",
-    LogInEmail: "",
-    LogInPassword: ""
+const LogInUserNames = {name: "user", password: "user123" }
+
+ const loginInitailValue = {
+    logInName: "",
+   logInPassword: ""
  }
 
  const initialDisabled = true
@@ -17,12 +17,12 @@ export default function LogIn () {
 
     
 
-    const [userLogin, setUserLogin] = useState(LoginInitailValue)
+    const [userLogin, setUserLogin] = useState(loginInitailValue)
     const [disabled, setDisabled] = useState(initialDisabled)
-
+    
 
     const validation = () => {
-        if ( (userLogin.LogInName === LogInUserNames.name) && (userLogin.LogInEmail === LogInUserNames.email) && (userLogin.LogInPassword === LogInUserNames.password )) {
+        if ( (userLogin.logInName === LogInUserNames.name) &&  (userLogin.logInPassword === LogInUserNames.password )) {
             setDisabled(false)
         }
     }
@@ -39,51 +39,83 @@ export default function LogIn () {
 
     const onSubmit = (event) => {
         event.preventDefault()
+        // console.log("hiiii")
     } 
 
     
   
     return(
-        <form onSubmit={onSubmit} >
-           <label htmlFor="LogInName">
-               Username: 
-               <input
-                    type= "text"
-                    name="LogInName"
-                    id="LogInName"
-                    placeholder="Enter Your UserName"
-                    value={userLogin.LogInName}
-                    onChange={onChange}
-                />
-           </label>
 
-           <label htmlFor="LogInEmail">
-           Email:
-               <input
-                type="email"
-                name="LogInEmail"
-                id="LogInEmail"
-                placeholder="Enter Your Email"
-                value={userLogin.LogInEmail}
-                onChange={onChange}
-                />
-           </label>
 
-           <label htmlFor="LogInPassword">
-           Password:
-               <input
-                    type="password"
-                    name="LogInPassword"
-                    id="LogInPassword"
-                    placeholder="Enter Your Password"
-                    value={userLogin.LogInPassword}
-                    onChange={onChange}
-                 />
-           </label>
-           
+        <div className="margin">
+    <div className="ui placeholder segment">
+  <div className="ui two column very relaxed stackable grid">
 
-           <Link to ="/Something"> <button disabled={disabled} >LogIn</button></Link>
-           
-       </form>
+    <div className="column">
+      <div className="ui form">
+
+      <form onSubmit={onSubmit}>  {/* form starts here */}
+            
+        <div className="field">
+
+          <label htmlFor="logInName">Username</label>
+
+          <div className="ui left icon input">
+
+          {/* input name starts here */}
+            <input
+             type="text"
+              placeholder="Username"
+              name="logInName"
+              id="logInName"
+
+              value={userLogin.logInName}
+              onChange={onChange}
+              /> 
+            
+            <i className="user icon"></i>
+          </div>
+        </div>
+        <div className="field">
+
+          <label htmlFor="logInPassword" >Password</label>
+
+          <div className="ui left icon input">
+
+            {/* input password starts here */}
+            <input
+             type="password"
+             name="logInPassword"
+             id="logInPassword"
+             
+             value={userLogin.logInPassword}
+             onChange={onChange}
+             />
+
+            <i className="lock icon"></i>
+          </div>
+        </div>
+        <button className="positive ui button">&nbsp;Login&nbsp;</button>
+        
+        </form>
+      </div>
+    </div>
+    
+    <div className="middle aligned column">
+    <Link to="/Register">
+      <div className="ui big button">
+        <i className="signup icon"></i>
+        Sign Up
+      </div>
+      </Link>
+    </div>
+  </div>
+  <div className="ui vertical divider">
+    Or
+
+
+  </div>
+</div>
+</div>
     )
 }
