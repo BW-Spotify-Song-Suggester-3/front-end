@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, Route } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import * as yup from "yup";
 
 import "./App.css";
 import LogIn from "./components/LogIn";
 import Register from "./components/Register";
-import Something from "./components/Something";
 import formSchema from "./validation/formSchema";
 import Dashboard from "./components/Dashboard Components/Dashboard";
+import PrivateRoute from "./components/PrivateRoute";
 
 const formInitialValue = {
   name: "",
@@ -42,12 +42,23 @@ function App() {
 
   const postUsers = (newUser) => {
     axios
-      .post("https://reqres.in/api/users", newUser)
+      .post(
+        "https://tjs-songsuggest.herokuapp.com/login",
+        `grant_type=password&username=${newUser.name}&password=${newUser.password}`,
+        {
+          headers: {
+            // btoa is converting our client id/client secret into base64
+            Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
       .then((res) => {
+        console.log("sign up response:", res);
         setForm(formInitialValue);
         setUsers([...users, res.data]);
       })
-      .catch(() => console.log("axios.post err"));
+      .catch((err) => console.log("axios.post err", err));
   };
 
   const submit = () => {
@@ -55,7 +66,7 @@ function App() {
       name: form.name.trim(),
       email: form.email.trim(),
       password: form.password.trim(),
-      terms: form.terms,
+      // terms: form.terms,
     };
     //send this information to the function that post to axios
     postUsers(newUser);
@@ -98,32 +109,28 @@ function App() {
 
   return (
     <div>
-      <Route exact path="/">
-        {/* Don't have an Acount? */}
-        {/* <Link to="/Register">Register</Link> */}
-        <LogIn />
-      </Route>
+      <Switch>
+        <Route exact path="/">
+          Don't have an Acount?
+          <Link to="/Register">Register</Link>
+          <LogIn />
+        </Route>
 
-      <Route path="/Register">
-       
-        <Register
-          update={formValueHandler}
-          values={form}
-          submit={submit}
-          disabled={disabled}
-          errors={formErrors}
-          inputChange={inputChange}
-        />
-      </Route>
+        <Route path="/Register">
+          ALready have an Acout?
+          <Link to="/">Login</Link>
+          <Register
+            update={formValueHandler}
+            values={form}
+            submit={submit}
+            disabled={disabled}
+            errors={formErrors}
+            inputChange={inputChange}
+          />
+        </Route>
 
-      <Link to="/dashboard">Dashboard</Link>
-
-      <Route path="/Something">
-        <Something />
-      </Route>
-      <Route path="/dashboard">
-        <Dashboard />
-      </Route>
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+      </Switch>
     </div>
   );
 }

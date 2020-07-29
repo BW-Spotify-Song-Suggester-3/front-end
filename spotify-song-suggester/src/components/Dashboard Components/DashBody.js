@@ -4,16 +4,24 @@ import { Route, Switch, useRouteMatch } from "react-router-dom";
 //Components
 import AddSong from "./AddSong";
 import AddMood from "./AddMood";
+import Moods from "./Moods";
+import FavSongs from "./FavSongs";
+import Suggestions from "./Suggestions";
 
 const DashBody = () => {
   const { path } = useRouteMatch();
 
   return (
     <div className="dashboard-body">
-      <h1>Dashboard Body</h1>
       <Switch>
-        <Route path={`${path}/addsong`} component={AddSong} />
-        <Route path={`${path}/addmood`} component={AddMood}></Route>
+        <Route exact path={`${path}`}>
+          <h1>Dashboard Body</h1>
+          <FavSongs />
+          <Moods />
+        </Route>
+        <Route exact path={`${path}/addsong`} component={AddSong} />
+        <Route exact path={`${path}/addmood`} component={AddMood} />
+        <Route path={`${path}/suggestions/:id`} component={Suggestions} />
       </Switch>
     </div>
   );
