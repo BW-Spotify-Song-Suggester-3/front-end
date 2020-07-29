@@ -32,7 +32,7 @@ const initialDisabled = true;
 function App() {
   const [form, setForm] = useState(formInitialValue);
   const [users, setUsers] = useState(usersInitialValue);
-
+console.log(form)
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
