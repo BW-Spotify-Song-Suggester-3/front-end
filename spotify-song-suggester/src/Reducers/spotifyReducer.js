@@ -1,5 +1,5 @@
 const initialUserState = {
-  userData: "",
+  userData: 4,
   favoriteSongs: "",
 };
 
@@ -15,7 +15,7 @@ export const spotifyReducer = (state = initialUserState, action) => {
       console.log("Fetch user reducer reached:", action.payload);
       return {
         ...state,
-        userData: action.payload[0],
+        userData: action.payload[0].userid,
       };
 
     default:

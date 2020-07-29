@@ -1,7 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { connect } from "react-redux";
 
-const FavSongs = () => {
-  return <div>FavSongs</div>;
+const FavSongs = (props) => {
+  const [favSongs, setFavSongs] = useState([]);
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`songs/user/${props.userData}`)
+      .then((res) => {
+        console.log("Get Songs Request:", res);
+        setFavSongs(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  if (favSongs.length === 0) {
+    return null;
+  } else {
+    return (
+      <div>
+        {favSongs.map((song) => (
+          <p key={song.spotifyid}>
+            {song.name} and {song.artist}
+          </p>
+        ))}
+      </div>
+    );
+  }
 };
 
-export default FavSongs;
+const mapsStateToProps = (state) => {
+  return {
+    userData: state.userData,
+  };
+};
+
+export default connect(mapsStateToProps, {})(FavSongs);

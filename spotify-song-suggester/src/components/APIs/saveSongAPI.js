@@ -17,13 +17,13 @@ export const saveSongAPI = (songData, userID) => {
   console.log(newSong);
 
   axiosWithAuth()
-    .post(`songs/create/user/4/song`, newSong)
+    .post(`songs/create/user/${userID}/song`, newSong)
     .then((res) => {
       console.log(res);
 
       axiosWithAuth()
-        .get(`songs/user/4`)
-        .then((res) => console.log(res))
+        .get(`songs/user/${userID}`)
+        .then((res) => console.log("Get Songs Request:", res))
         .catch((err) => console.log(err));
     })
     .catch((err) => {

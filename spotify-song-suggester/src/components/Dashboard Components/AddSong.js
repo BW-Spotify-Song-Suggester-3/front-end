@@ -8,7 +8,7 @@ const initialUrl = "";
 const AddSong = (props) => {
   const [songUrl, setSongUrl] = useState(initialUrl);
   const [songData, setSongData] = useState();
-  const ID = props.userData.userid;
+  const ID = props.userData;
 
   const onChange = (event) => {
     setSongUrl(event.target.value);
