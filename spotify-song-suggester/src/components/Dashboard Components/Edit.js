@@ -30,6 +30,23 @@ const Edit = () => {
       .catch((err) => console.log(err));
   };
 
+  const saveUpdate = () => {
+    axiosWithAuth().put(`songs/update/song/${id}`, song);
+  };
+
+  const handleChanges = (event) => {
+    setSong({
+      ...song,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = () => {
+    console.log("edited song:", song);
+    saveUpdate();
+    setTimeout(() => history.push("/dashboard"), 2000);
+  };
+
   if (loading === true) {
     return <h1>loading...</h1>;
   } else if (deleting === true) {
@@ -44,14 +61,27 @@ const Edit = () => {
             className="album-covers"
           />
           <div className="info-container">
-            <div className="info-box">
-              <div className="title">{song.name}</div>
-              <div className="artist">{song.artist}</div>
-            </div>
-            <div className="action-box">
-              <div onClick={() => deleteSong(song.songid)}>Delete</div>
-              <div onClick={() => deleteSong(song.songid)}>Edit</div>
-            </div>
+            <form>
+              <div className="info-box">
+                <input
+                  onChange={handleChanges}
+                  name="name"
+                  value={song.name}
+                  placeholder={song.name}
+                ></input>
+                <input
+                  onChange={handleChanges}
+                  name="artist"
+                  value={song.artist}
+                  placeholder={song.artist}
+                ></input>
+              </div>
+              <div className="action-box">
+                <div onClick={() => deleteSong(song.songid)}>Delete</div>
+                <div onClick={() => handleSubmit()}>Save Edit</div>
+              </div>
+            </form>
+
             <embed src={song.previewurl} className="song-preview" />
           </div>
         </div>
