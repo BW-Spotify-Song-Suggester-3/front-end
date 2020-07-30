@@ -3,6 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logInAction } from "./Actions/spotifyActions";
 import axios from "axios";
+import { Spring } from 'react-spring/renderprops'
 
 const LogInUserNames = {
   name: "user",
@@ -67,6 +68,14 @@ function LogIn(props) {
   };
 
   return (
+    <Spring
+      from={{ opacity: 0, marginTop: -500 }}
+      to={{ opacity: 1, marginTop: 0 }}
+    >
+      {props => (
+        <div style={props}>
+
+        
     <div className="margin">
     <div className="ui placeholder segment">
   <div className="ui two column very relaxed stackable grid">
@@ -137,6 +146,9 @@ function LogIn(props) {
   </div>
 </div>
 </div>
+</div>
+      )}
+      </Spring>
   );
 }
 
