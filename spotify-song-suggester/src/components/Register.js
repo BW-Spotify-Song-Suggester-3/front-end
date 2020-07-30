@@ -131,7 +131,7 @@ export default function Register({
           </div>
         </div>
       </div>
-      ALready have an Account?&nbsp;&nbsp;
+      Already have an Account?&nbsp;&nbsp;
       <Link to="/">Login</Link>
     </div>
 
