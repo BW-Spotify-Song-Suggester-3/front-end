@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 import axios from "axios";
 import * as yup from "yup";
 
@@ -9,6 +10,7 @@ import Register from "./components/Register";
 import formSchema from "./validation/formSchema";
 import Dashboard from "./components/Dashboard Components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
+import { logInAction } from "./components/Actions/spotifyActions";
 
 const formInitialValue = {
   name: "",
@@ -29,12 +31,12 @@ const initialFormErrors = {
 const usersInitialValue = [];
 const initialDisabled = true;
 
-function App() {
+function App(props) {
   const [form, setForm] = useState(formInitialValue);
   const [users, setUsers] = useState(usersInitialValue);
-console.log(form)
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
+  const history = useHistory();
 
   const formValueHandler = (name, value) => {
     setForm({ ...form, [name]: value });
@@ -42,20 +44,13 @@ console.log(form)
 
   const postUsers = (newUser) => {
     axios
-      .post(
-        "https://tjs-songsuggest.herokuapp.com/login",
-        `grant_type=password&username=${newUser.name}&password=${newUser.password}`,
-        {
-          headers: {
-            // btoa is converting our client id/client secret into base64
-            Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
+      .post("https://tjs-songsuggest.herokuapp.com/createnewuser", newUser)
       .then((res) => {
         console.log("sign up response:", res);
+        window.localStorage.setItem("access_token", res.data.access_token);
         setForm(formInitialValue);
+        props.logInAction(newUser.username);
+        history.push("/dashboard");
         setUsers([...users, res.data]);
       })
       .catch((err) => console.log("axios.post err", err));
@@ -63,10 +58,9 @@ console.log(form)
 
   const submit = () => {
     const newUser = {
-      name: form.name.trim(),
-      email: form.email.trim(),
+      username: form.name.trim(),
       password: form.password.trim(),
-      // terms: form.terms,
+      primaryemail: form.email.trim(),
     };
     //send this information to the function that post to axios
     postUsers(newUser);
@@ -115,7 +109,6 @@ console.log(form)
         </Route>
 
         <Route path="/Register">
-         
           <Register
             update={formValueHandler}
             values={form}
@@ -132,4 +125,10 @@ console.log(form)
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    userData: state.userData,
+  };
+};
+
+export default connect(mapStateToProps, { logInAction })(App);
