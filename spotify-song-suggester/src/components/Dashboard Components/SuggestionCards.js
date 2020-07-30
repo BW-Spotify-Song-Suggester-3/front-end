@@ -7,7 +7,7 @@ const SuggestionCards = (props) => {
   return (
     <div>
       {recommendedSongs.map((song) => (
-        <div className="fav-songs-card">
+        <div className="fav-songs-card" key={song.spotifyid}>
           <div key={song.spotifyid} className="song-cards">
             <img
               src={song.album.images[0].url}

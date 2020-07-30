@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const axiosWithAuthSpotify = () => {
   const token =
-    "BQACvVLPULm3mv42-tkmlYIfHRc9wVFNBIoRTpKopzu5H5bgZNB_j5LOXnDsCDBkL_uRp5iDIrtcC_3IZvE";
+    "BQB56C8WB5h8Tpi6vlhIDDlXOzjubbRCttHJcdAGEHfTj5fgqEAE5hJLOtZEmeciA-yaPCSrjlQwHEfycR0";
   return axios.create({
     baseURL: "https://api.spotify.com/v1/tracks/",
     headers: {
@@ -26,3 +26,4 @@ export const axiosWithAuth = () => {
 //curl -X "POST" -H "Authorization: Basic YTFkNTk0MmRkNGU2NGUzYmFmMTYzNDJiNDBjODIxNTE6YThlMjJhNjkwODNmNDljNmFhOWE5Yzk0ZWI5MGM4NTM=" -d grant_type=client_credentials https://accounts.spotify.com/api/token
 
 // curl -X "POST" -H "Authorization: Basic YTFkNTk0MmRkNGU2NGUzYmFmMTYzNDJiNDBjODIxNTE6YThlMjJhNjkwODNmNDljNmFhOWE5Yzk0ZWI5MGM4NTM=" -d grant_type=client_credentials https://accounts.spotify.com/api/token
+// https://open.spotify.com/track/5kDeYoYdLnW8ILTXdbiXjJ

@@ -17,12 +17,12 @@ const FavSongs = (props) => {
       .catch((err) => console.log(err));
   }, [props.userData]);
 
-  const deleteSong = (songId) => {
-    axiosWithAuth()
-      .delete(`songs/delete/song/${songId}`)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
+  //   const deleteSong = (songId) => {
+  //     axiosWithAuth()
+  //       .delete(`songs/delete/song/${songId}`)
+  //       .then((res) => console.log(res))
+  //       .catch((err) => console.log(err));
+  //   };
 
   if (favSongs.length < 1) {
     return null;
@@ -42,9 +42,10 @@ const FavSongs = (props) => {
                 <div className="artist">{song.artist}</div>
               </div>
               <div className="action-box">
-                <div onClick={() => deleteSong(song.songid)}>
-                  Remove from Favs
-                </div>
+                {/* <div onClick={() => deleteSong(song.songid)}>
+                  Edit / Remove
+                </div> */}
+                <Link to={`${url}/edit/${song.songid}`}>Edit / Remove</Link>
                 <Link to={`${url}/suggestions/${song.spotifyid}`}>
                   See Suggestions
                 </Link>
