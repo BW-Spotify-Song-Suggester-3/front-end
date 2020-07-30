@@ -111,14 +111,11 @@ console.log(form)
     <div>
       <Switch>
         <Route exact path="/">
-          Don't have an Acount?
-          <Link to="/Register">Register</Link>
           <LogIn />
         </Route>
 
         <Route path="/Register">
-          ALready have an Acout?
-          <Link to="/">Login</Link>
+         
           <Register
             update={formValueHandler}
             values={form}
