@@ -42,17 +42,13 @@ function App() {
 
   const postUsers = (newUser) => {
     axios
-      .post(
-        "https://tjs-songsuggest.herokuapp.com/login",
-        `grant_type=password&username=${newUser.name}&password=${newUser.password}`,
-        {
-          headers: {
-            // btoa is converting our client id/client secret into base64
-            Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
+      .post("https://tjs-songsuggest.herokuapp.com/createnewuser", newUser, {
+        headers: {
+          // btoa is converting our client id/client secret into base64
+          Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
       .then((res) => {
         console.log("sign up response:", res);
         setForm(formInitialValue);
@@ -63,10 +59,9 @@ function App() {
 
   const submit = () => {
     const newUser = {
-      name: form.name.trim(),
-      email: form.email.trim(),
+      username: form.name.trim(),
       password: form.password.trim(),
-      // terms: form.terms,
+      primaryemail: form.email.trim(),
     };
     //send this information to the function that post to axios
     postUsers(newUser);
