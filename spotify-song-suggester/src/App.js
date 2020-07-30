@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 import axios from "axios";
 import * as yup from "yup";
 
@@ -9,6 +10,7 @@ import Register from "./components/Register";
 import formSchema from "./validation/formSchema";
 import Dashboard from "./components/Dashboard Components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
+import { logInAction } from "./components/Actions/spotifyActions";
 
 const formInitialValue = {
   name: "",
@@ -29,12 +31,12 @@ const initialFormErrors = {
 const usersInitialValue = [];
 const initialDisabled = true;
 
-function App() {
+function App(props) {
   const [form, setForm] = useState(formInitialValue);
   const [users, setUsers] = useState(usersInitialValue);
-
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
+  const history = useHistory();
 
   const formValueHandler = (name, value) => {
     setForm({ ...form, [name]: value });
@@ -42,16 +44,12 @@ function App() {
 
   const postUsers = (newUser) => {
     axios
-      .post("https://tjs-songsuggest.herokuapp.com/createnewuser", newUser, {
-        headers: {
-          // btoa is converting our client id/client secret into base64
-          Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      })
+      .post("https://tjs-songsuggest.herokuapp.com/createnewuser", newUser)
       .then((res) => {
         console.log("sign up response:", res);
         setForm(formInitialValue);
+        props.logInAction(newUser.username);
+        history.push("/dashboard");
         setUsers([...users, res.data]);
       })
       .catch((err) => console.log("axios.post err", err));
@@ -64,7 +62,7 @@ function App() {
       primaryemail: form.email.trim(),
     };
     //send this information to the function that post to axios
-    postUsers(JSON.parse(newUser));
+    postUsers(newUser);
   };
 
   // validation
@@ -106,14 +104,10 @@ function App() {
     <div>
       <Switch>
         <Route exact path="/">
-          Don't have an Acount?
-          <Link to="/Register">Register</Link>
           <LogIn />
         </Route>
 
         <Route path="/Register">
-          ALready have an Acout?
-          <Link to="/">Login</Link>
           <Register
             update={formValueHandler}
             values={form}
@@ -130,4 +124,10 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    userData: state.userData,
+  };
+};
+
+export default connect(mapStateToProps, { logInAction })(App);

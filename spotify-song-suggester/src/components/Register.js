@@ -1,5 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
+import { Spring } from 'react-spring/renderprops'
 
 export default function Register({
   values,
@@ -22,7 +23,15 @@ export default function Register({
   };
 
   return (
-    <div className="margin2">
+
+    <Spring
+     config={{mass:3, tension:300, friction:30}}
+      from={{ opacity: 0, marginRight: 2000}}
+      to={{ opacity: 1, marginRight: 0  }}
+    >
+      {props => (
+        <div style={props}>
+        <div className="margin2">
       <div className="ui placeholder segment bigBox">
         <div className="flexBox">
           <div className="formStyle">
@@ -122,8 +131,16 @@ export default function Register({
           </div>
         </div>
       </div>
-      ALready have an Account?&nbsp;&nbsp;
+      Already have an Account?&nbsp;&nbsp;
       <Link to="/">Login</Link>
     </div>
+
+        </div>
+          
+      )}
+    </Spring>
+
+
+    
   );
 }

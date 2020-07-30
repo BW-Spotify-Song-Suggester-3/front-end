@@ -1,13 +1,20 @@
 import { axiosWithAuth, axiosWithAuthSpotify } from "../utils/axiosWithAuth";
 
-export const logInAction = () => (dispatch) => {
+export const logInAction = (username) => (dispatch) => {
   dispatch({ type: "LOG_IN" });
 
   axiosWithAuth()
     .get("users/users")
     .then((res) => {
       console.log("USER LIST RESPONSE:", res.data);
-      dispatch({ type: "FETCH_USER", payload: res.data });
+
+      const userLoggingIn = res.data.filter(
+        (user) => user.username === username
+      );
+
+      console.log("USER LOGGIN IN", userLoggingIn);
+
+      dispatch({ type: "FETCH_USER", payload: userLoggingIn });
     })
     .catch((err) => {
       console.log("USER LIST ERR:", err);
