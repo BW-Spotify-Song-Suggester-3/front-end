@@ -64,7 +64,7 @@ function App() {
       primaryemail: form.email.trim(),
     };
     //send this information to the function that post to axios
-    postUsers(newUser);
+    postUsers(JSON.parse(newUser));
   };
 
   // validation
