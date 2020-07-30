@@ -47,6 +47,7 @@ function App(props) {
       .post("https://tjs-songsuggest.herokuapp.com/createnewuser", newUser)
       .then((res) => {
         console.log("sign up response:", res);
+        window.localStorage.setItem("access_token", res.data.access_token);
         setForm(formInitialValue);
         props.logInAction(newUser.username);
         history.push("/dashboard");

@@ -149,33 +149,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { logInAction })(LogIn);
-
-// this is the old form code,  delete it when your done
-{
-  /* <form onSubmit={onSubmit}>
-<label htmlFor="LogInName">
-  Username:
-  <input
-    type="text"
-    name="LogInName"
-    id="LogInName"
-    placeholder="Enter Your UserName"
-    value={userLogin.LogInName}
-    onChange={onChange}
-  />
-</label>
-
-<label htmlFor="LogInPassword">
-  Password:
-  <input
-    type="password"
-    name="LogInPassword"
-    id="LogInPassword"
-    placeholder="Enter Your Password"
-    value={userLogin.LogInPassword}
-    onChange={onChange}
-  />
-</label>
-<button type="submit">Log In</button>
-</form> */
-}

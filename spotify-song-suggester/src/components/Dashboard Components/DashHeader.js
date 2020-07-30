@@ -1,8 +1,14 @@
 import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, useHistory } from "react-router-dom";
 
 const DashHeader = () => {
   const { url } = useRouteMatch();
+  const history = useHistory();
+
+  const logoutHandler = () => {
+    window.localStorage.removeItem("access_token");
+    history.push("/dashboard");
+  };
 
   return (
     <header>
@@ -11,6 +17,7 @@ const DashHeader = () => {
       </Link>
       <Link to={`${url}/addsong`}>Add Song</Link>
       <Link to={`${url}/addmood`}>Add Mood</Link>
+      <div onClick={logoutHandler}>Log Out</div>
     </header>
   );
 };
