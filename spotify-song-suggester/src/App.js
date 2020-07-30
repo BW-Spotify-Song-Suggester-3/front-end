@@ -32,7 +32,7 @@ const initialDisabled = true;
 function App() {
   const [form, setForm] = useState(formInitialValue);
   const [users, setUsers] = useState(usersInitialValue);
-
+console.log(form)
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
@@ -111,14 +111,11 @@ function App() {
     <div>
       <Switch>
         <Route exact path="/">
-          Don't have an Acount?
-          <Link to="/Register">Register</Link>
           <LogIn />
         </Route>
 
         <Route path="/Register">
-          ALready have an Acout?
-          <Link to="/">Login</Link>
+         
           <Register
             update={formValueHandler}
             values={form}
