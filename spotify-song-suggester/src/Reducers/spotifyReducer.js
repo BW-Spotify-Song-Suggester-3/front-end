@@ -18,6 +18,13 @@ export const spotifyReducer = (state = initialUserState, action) => {
         userData: action.payload[0].userid,
       };
 
+    case "CLEAR_RECOMMENDED":
+      console.log("Clear recommended reducer reached:");
+      return {
+        state,
+        recommendedSongs: [],
+      };
+
     case "STORE_PREDICTIONS":
       console.log("Store predictions reducer reached:", action.payload);
       return {

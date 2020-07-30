@@ -15,6 +15,8 @@ export const logInAction = () => (dispatch) => {
 };
 
 export const predictionsAction = (suggestions) => (dispatch) => {
+  dispatch({ type: "CLEAR_RECOMMENDED" });
+
   suggestions.map((suggestion) => {
     axiosWithAuthSpotify()
       .get(suggestion)
