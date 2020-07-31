@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
 //Components
 import DashHeader from "./DashHeader";
 import DashBody from "./DashBody";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   return (
     <div className="app-wrapper">
       <DashHeader />
@@ -13,4 +14,12 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    userData: state.userData,
+    recommendedSongs: state.recommendedSongs,
+    username: state.username,
+  };
+};
+
+export default connect(mapStateToProps, {})(Dashboard);

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const axiosWithAuthSpotify = () => {
   const token =
-    "BQAxHFkiBQIpqsrREGmzabMSw814mHDWBjZIUmj8Bgt4rSe8pQD3kzfSS7O4bUVLu2OqqnIbc7flr9bf7YI";
+    "BQDcyUdckUVGqTrJqbUL1HE1L9xoFh7Ik2h5sMLiYEqSrfevRTVUX8BziNhlnFnbZZgmMu73NkgZhCAlvto";
   return axios.create({
     baseURL: "https://api.spotify.com/v1/tracks/",
     headers: {

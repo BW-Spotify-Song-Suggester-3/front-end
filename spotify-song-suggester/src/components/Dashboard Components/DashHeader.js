@@ -11,13 +11,17 @@ const DashHeader = () => {
   };
 
   return (
-    <header>
+    <header className="dashboard-header">
       <Link to="/dashboard">
-        <h1>Dashboard Header</h1>
+        <h1>Songestions</h1>
       </Link>
-      <Link to={`${url}/addsong`}>Add Song</Link>
-      <Link to={`${url}/addmood`}>Add Mood</Link>
-      <div onClick={logoutHandler}>Log Out</div>
+      <div>
+        <Link to={`${url}/addsong`}>Add Song</Link>
+        <Link to={`${url}/addmood`}>Add Mood</Link>
+        <Link to="/dashboard" onClick={logoutHandler}>
+          Log Out
+        </Link>
+      </div>
     </header>
   );
 };

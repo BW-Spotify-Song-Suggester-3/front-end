@@ -3,6 +3,7 @@ import { axiosWithAuthSpotify } from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { saveSongAPI } from "../APIs/saveSongAPI";
 import { useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const initialUrl = "";
 
@@ -43,15 +44,47 @@ const AddSong = (props) => {
 
   if (loading === true) {
     return (
-      <div>
+      <motion.div
+        initial={{
+          opacity: 1,
+          y: 150,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+        className="fetching-suggestions"
+      >
+        <div className="lds-heart">
+          <div></div>
+        </div>
         <h1>adding song...</h1>
-      </div>
+        <div className="lds-heart">
+          <div></div>
+        </div>
+      </motion.div>
     );
   } else {
     return (
-      <div className="add-song-body">
+      <motion.div
+        initial={{
+          opacity: 1,
+          y: 150,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+        className="add-song-body"
+      >
         <form onSubmit={onSubmit} className="add-song-form">
-          <h3>Paste Spotify URL to Add a Song </h3>
+          <h3>Add a Song </h3>
           <p>
             Go to your favorite song on spotify, click the three dots on the
             right right, and then click Share and Copy Song Link
@@ -62,7 +95,20 @@ const AddSong = (props) => {
           </button>
 
           {!songData ? null : (
-            <div className="fav-songs-card">
+            <motion.div
+              initial={{
+                opacity: 1,
+                y: 150,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 1,
+              }}
+              className="fav-songs-card"
+            >
               <div key={songData.spotifyid} className="song-cards">
                 <img
                   src={songData.album.images[0].url}
@@ -74,17 +120,20 @@ const AddSong = (props) => {
                     <div className="title">{songData.name}</div>
                     <div className="artist">{songData.artists[0].name}</div>
                   </div>
-                  <div onClick={() => saveSong(songData, ID)}>
+                  <div
+                    className="action-box"
+                    onClick={() => saveSong(songData, ID)}
+                  >
                     Add Song To Favorites
                   </div>
 
                   <embed src={songData.preview_url} className="song-preview" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
         </form>
-      </div>
+      </motion.div>
     );
   }
 };

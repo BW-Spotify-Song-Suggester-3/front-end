@@ -43,6 +43,7 @@ const moodCreated = [];
 const Sliders = (props) => {
   const [moodValues, setMoodValues] = useState(initialMood);
   const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const changeHandler = (event) => {
     console.log("Change Handler Reached", event.target.mood);
@@ -66,20 +67,47 @@ const Sliders = (props) => {
 
     axios
       .post(`https://spotify-data-api.herokuapp.com/predictmood`, moodValues)
-      .then((res) => props.predictionsAction(res.data))
+      .then((res) => {
+        console.log(res.data);
+        props.predictionsAction(res.data);
+        setLoading(false);
+        setLoaded(true);
+      })
+
       .catch((err) => console.log(err));
-    setLoaded(true);
+    setLoading(true);
   };
 
-  if (loaded === true) {
+  if (loading === true) {
+    return (
+      <div className="fetching-suggestions">
+        <div class="lds-ellipsis">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <h1>fetching suggestions</h1>
+        <div class="lds-ellipsis">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    );
+  } else if (loaded === true) {
     return <SuggestionCards />;
   } else
     return (
-      <div className="add-mood-form">
-        <form onSubmit={submitHandler}>
+      <form className="add-mood-container" onSubmit={submitHandler}>
+        <h4>Request song suggestions based on mood</h4>
+
+        <div className="add-mood-form">
           {initialMood.moods.map((mood) => (
-            <div key={mood.mood}>
-              <h3>{mood.mood}</h3>
+            <div className="mood-box" key={mood.mood}>
+              <label>{mood.mood}</label>
+              <br />
               <select name={mood.mood} onChange={changeHandler}>
                 <option value=""></option>
                 <option value="low">Low</option>
@@ -88,9 +116,10 @@ const Sliders = (props) => {
               </select>
             </div>
           ))}
-          <button type="submit">Add Mood</button>
-        </form>
-      </div>
+        </div>
+
+        <button type="submit">Add Mood</button>
+      </form>
     );
 };
 

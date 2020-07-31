@@ -1,49 +1,82 @@
 * {
   /* border: 1px solid red; */
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
 }
 
 .App {
   text-align: center;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app-wrapper {
+  box-sizing: border-box;
+  background-color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.dashboard-header {
+  box-shadow: 0px 0px 20px 0px #dadde2;
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 25vh;
+  background-image: linear-gradient(
+    -45deg,
+    #845ec2,
+    #d65db1,
+    #ff6f91,
+    #ff9671,
+    #ffc75f,
+    #f9f871
+  );
+  background-size: 400%;
+  animation: bg-animation 20s infinite alternate;
+  clip-path: polygon(0 0, 100% 0%, 100% 76%, 0% 100%);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 5% 3% 5% 3%;
+}
+
+.dashboard-header h1 {
+  text-transform: uppercase;
+  font-size: 5rem;
   color: white;
+  text-shadow: 0px 0px 10px grey;
+  letter-spacing: 0.7rem;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dashboard-header a {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  padding: 15px;
+  color: white;
+  text-shadow: 0px 0px 10px grey;
+  letter-spacing: 0.1rem;
 }
 
 .dashboard-body {
-  margin: 5%;
+  position: relative;
   box-sizing: border-box;
+  padding-bottom: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .fav-songs-card {
@@ -51,13 +84,23 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  box-sizing: border-box;
+  align-items: center;
 }
 
 .song-cards {
-  margin: 5%;
+  border-radius: 10px;
+  margin: 2%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  box-sizing: border-box;
+  background-color: #f0f3f4;
+  color: black;
+  padding: 30px;
+  max-width: 700px;
+  box-shadow: 0px 0px 20px 0px #dadde2;
+  border: 0.5px solid #dadde2;
 }
 
 .info-container {
@@ -65,23 +108,26 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  min-width: 304px;
+  width: 350px;
+  padding: 30px;
 }
 
 .song-preview {
-  height: 50px;
-  width: 50%;
+  height: 45px;
+  width: 250px;
+  clip-path: inset(9% 37% 9% 37%);
 }
 
 .info-box {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
   width: 90%;
   text-align: center;
 }
 
-.action-box {
+.action-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -107,6 +153,7 @@
 
 input {
   text-align: center;
+  font-size: 0.8rem;
 }
 
 .formStyle {
@@ -158,4 +205,341 @@ input {
 .green:hover {
   background-color: #4caf50;
   color: white;
+}
+
+.info-container {
+  box-sizing: border-box;
+}
+
+.action-box {
+  padding: 5px;
+  color: #4183c4;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 90%;
+}
+
+.action-box:hover {
+}
+
+.title {
+  padding: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.artist {
+  padding: 5px;
+
+  font-size: 1rem;
+}
+
+.add-mood-container,
+.add-song-body {
+  border-radius: 10px;
+  margin: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  align-items: center;
+  background-color: #f0f3f4;
+  color: black;
+  padding: 30px;
+  max-width: 700px;
+  box-shadow: 0px 0px 20px 0px #dadde2;
+  border: 0.5px solid #dadde2;
+}
+
+.add-mood-form {
+  margin: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+
+  color: black;
+  padding: 30px;
+}
+
+.mood-box {
+  margin: 2%;
+  text-transform: uppercase;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.mood-box label,
+option,
+select {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.edit-form input {
+  margin-bottom: 10px;
+}
+
+.edit-form label {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #4183c4;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+.fetching-suggestions {
+  margin-top: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.fetching-suggestions-2 {
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fetching-suggestions-2 h1 {
+  color: #4183c4;
+  letter-spacing: 1rem;
+}
+
+.fetching-suggestions h1 {
+  color: #4183c4;
+  letter-spacing: 1rem;
+}
+
+.lds-heart {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform: rotate(45deg);
+  transform-origin: 40px 40px;
+}
+.lds-heart div {
+  top: 32px;
+  left: 32px;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: #4183c4;
+  animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.lds-heart div:after,
+.lds-heart div:before {
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: #4183c4;
+}
+.lds-heart div:before {
+  left: -24px;
+  border-radius: 50% 0 0 50%;
+}
+.lds-heart div:after {
+  top: -24px;
+  border-radius: 50% 50% 0 0;
+}
+@keyframes lds-heart {
+  0% {
+    transform: scale(0.95);
+  }
+  5% {
+    transform: scale(1.1);
+  }
+  39% {
+    transform: scale(0.85);
+  }
+  45% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
+
+.lds-grid {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-grid div {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #4183c4;
+  animation: lds-grid 1.2s linear infinite;
+}
+.lds-grid div:nth-child(1) {
+  top: 8px;
+  left: 8px;
+  animation-delay: 0s;
+}
+.lds-grid div:nth-child(2) {
+  top: 8px;
+  left: 32px;
+  animation-delay: -0.4s;
+}
+.lds-grid div:nth-child(3) {
+  top: 8px;
+  left: 56px;
+  animation-delay: -0.8s;
+}
+.lds-grid div:nth-child(4) {
+  top: 32px;
+  left: 8px;
+  animation-delay: -0.4s;
+}
+.lds-grid div:nth-child(5) {
+  top: 32px;
+  left: 32px;
+  animation-delay: -0.8s;
+}
+.lds-grid div:nth-child(6) {
+  top: 32px;
+  left: 56px;
+  animation-delay: -1.2s;
+}
+.lds-grid div:nth-child(7) {
+  top: 56px;
+  left: 8px;
+  animation-delay: -0.8s;
+}
+.lds-grid div:nth-child(8) {
+  top: 56px;
+  left: 32px;
+  animation-delay: -1.2s;
+}
+.lds-grid div:nth-child(9) {
+  top: 56px;
+  left: 56px;
+  animation-delay: -1.6s;
+}
+@keyframes lds-grid {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: #4183c4;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%,
+  100% {
+    top: 24px;
+    height: 32px;
+  }
 }

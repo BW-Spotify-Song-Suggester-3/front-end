@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { Link, useRouteMatch } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const FavSongs = (props) => {
   const [favSongs, setFavSongs] = useState([]);
@@ -15,7 +16,7 @@ const FavSongs = (props) => {
         setFavSongs(res.data);
       })
       .catch((err) => console.log(err));
-  }, [props.userData]);
+  }, []);
 
   //   const deleteSong = (songId) => {
   //     axiosWithAuth()
@@ -29,8 +30,22 @@ const FavSongs = (props) => {
   } else {
     return (
       <div className="fav-songs-card">
-        {favSongs.map((song) => (
-          <div key={song.spotifyid} className="song-cards">
+        {favSongs.map((song, index) => (
+          <motion.div
+            initial={{
+              opacity: 1,
+              y: 400,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 1.5 + index / 2,
+            }}
+            key={song.spotifyid}
+            className="song-cards"
+          >
             <img
               src={song.albumcover}
               alt={song.album}
@@ -41,19 +56,24 @@ const FavSongs = (props) => {
                 <div className="title">{song.name}</div>
                 <div className="artist">{song.artist}</div>
               </div>
-              <div className="action-box">
+              <div className="action-container">
                 {/* <div onClick={() => deleteSong(song.songid)}>
                   Edit / Remove
                 </div> */}
-                <Link to={`${url}/edit/${song.songid}`}>Edit / Remove</Link>
-                <Link to={`${url}/suggestions/${song.spotifyid}`}>
-                  See Suggestions
+                <Link className="action-box" to={`${url}/edit/${song.songid}`}>
+                  Edit / Remove
+                </Link>
+                <Link
+                  className="action-box"
+                  to={`${url}/suggestions/${song.spotifyid}`}
+                >
+                  Suggestions
                 </Link>
               </div>
 
               <embed src={song.previewurl} className="song-preview" />
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     );
