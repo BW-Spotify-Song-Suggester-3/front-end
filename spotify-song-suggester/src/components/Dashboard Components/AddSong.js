@@ -43,15 +43,21 @@ const AddSong = (props) => {
 
   if (loading === true) {
     return (
-      <div>
+      <div className="fetching-suggestions">
+        <div class="lds-heart">
+          <div></div>
+        </div>
         <h1>adding song...</h1>
+        <div class="lds-heart">
+          <div></div>
+        </div>
       </div>
     );
   } else {
     return (
       <div className="add-song-body">
         <form onSubmit={onSubmit} className="add-song-form">
-          <h3>Paste Spotify URL to Add a Song </h3>
+          <h3>Add a Song </h3>
           <p>
             Go to your favorite song on spotify, click the three dots on the
             right right, and then click Share and Copy Song Link
@@ -74,7 +80,10 @@ const AddSong = (props) => {
                     <div className="title">{songData.name}</div>
                     <div className="artist">{songData.artists[0].name}</div>
                   </div>
-                  <div onClick={() => saveSong(songData, ID)}>
+                  <div
+                    className="action-box"
+                    onClick={() => saveSong(songData, ID)}
+                  >
                     Add Song To Favorites
                   </div>
 

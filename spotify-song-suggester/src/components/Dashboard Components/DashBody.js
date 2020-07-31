@@ -16,9 +16,7 @@ const DashBody = () => {
     <div className="dashboard-body">
       <Switch>
         <Route exact path={`${path}`}>
-          <h1>Dashboard Body</h1>
           <FavSongs />
-          <Moods />
         </Route>
         <Route exact path={`${path}/addsong`} component={AddSong} />
         <Route exact path={`${path}/addmood`} component={AddMood} />

@@ -61,14 +61,16 @@ const Edit = () => {
             className="album-covers"
           />
           <div className="info-container">
-            <form>
+            <form className="edit-form">
               <div className="info-box">
+                <label>Edit Song Title</label>
                 <input
                   onChange={handleChanges}
                   name="name"
                   value={song.name}
                   placeholder={song.name}
                 ></input>
+                <label>Edit Artist Name</label>
                 <input
                   onChange={handleChanges}
                   name="artist"

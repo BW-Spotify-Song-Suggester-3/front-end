@@ -5,8 +5,7 @@ import Sliders from "./Sliders";
 
 const AddMood = () => {
   return (
-    <div className="add-mood-container">
-      <h4>Adjust sliders to create a new mood</h4>
+    <div>
       <Sliders />
     </div>
   );
