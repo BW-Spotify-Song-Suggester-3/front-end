@@ -3,6 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logInAction } from "./Actions/spotifyActions";
 import axios from "axios";
+import { getSpotifyToken } from "./utils/axiosWithAuth";
 import { Spring } from "react-spring/renderprops";
 
 const LogInUserNames = {
@@ -61,6 +62,7 @@ function LogIn(props) {
       .then((res) => {
         window.localStorage.setItem("access_token", res.data.access_token);
         console.log("Log in response:", res);
+        getSpotifyToken();
         history.push("/dashboard");
         props.logInAction(userLogin.LogInName);
       })
