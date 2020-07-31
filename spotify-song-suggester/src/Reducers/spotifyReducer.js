@@ -1,5 +1,6 @@
 const initialUserState = {
   userData: 4,
+  username: "",
   recommendedSongs: [],
 };
 
@@ -16,6 +17,7 @@ export const spotifyReducer = (state = initialUserState, action) => {
       return {
         ...state,
         userData: action.payload[0].userid,
+        username: action.payload[0].username,
       };
 
     case "CLEAR_RECOMMENDED":

@@ -16,7 +16,7 @@ const FavSongs = (props) => {
         setFavSongs(res.data);
       })
       .catch((err) => console.log(err));
-  }, [props.userData]);
+  }, []);
 
   //   const deleteSong = (songId) => {
   //     axiosWithAuth()

@@ -3,6 +3,7 @@ import { axiosWithAuthSpotify } from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { saveSongAPI } from "../APIs/saveSongAPI";
 import { useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const initialUrl = "";
 
@@ -43,19 +44,45 @@ const AddSong = (props) => {
 
   if (loading === true) {
     return (
-      <div className="fetching-suggestions">
-        <div class="lds-heart">
+      <motion.div
+        initial={{
+          opacity: 1,
+          y: 150,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+        className="fetching-suggestions"
+      >
+        <div className="lds-heart">
           <div></div>
         </div>
         <h1>adding song...</h1>
-        <div class="lds-heart">
+        <div className="lds-heart">
           <div></div>
         </div>
-      </div>
+      </motion.div>
     );
   } else {
     return (
-      <div className="add-song-body">
+      <motion.div
+        initial={{
+          opacity: 1,
+          y: 150,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+        className="add-song-body"
+      >
         <form onSubmit={onSubmit} className="add-song-form">
           <h3>Add a Song </h3>
           <p>
@@ -68,7 +95,20 @@ const AddSong = (props) => {
           </button>
 
           {!songData ? null : (
-            <div className="fav-songs-card">
+            <motion.div
+              initial={{
+                opacity: 1,
+                y: 150,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 1,
+              }}
+              className="fav-songs-card"
+            >
               <div key={songData.spotifyid} className="song-cards">
                 <img
                   src={songData.album.images[0].url}
@@ -90,10 +130,10 @@ const AddSong = (props) => {
                   <embed src={songData.preview_url} className="song-preview" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
         </form>
-      </div>
+      </motion.div>
     );
   }
 };

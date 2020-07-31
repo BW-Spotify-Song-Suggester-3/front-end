@@ -48,9 +48,27 @@ const Edit = () => {
   };
 
   if (loading === true) {
-    return <h1>loading...</h1>;
+    return (
+      <div className="fetching-suggestions-2">
+        <div className="lds-facebook">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <h1>LOADING</h1>
+      </div>
+    );
   } else if (deleting === true) {
-    return <h1>deleting...</h1>;
+    return (
+      <div className="fetching-suggestions-2">
+        <div className="lds-facebook">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <h1>DELETING</h1>
+      </div>
+    );
   } else
     return (
       <div className="fav-songs-card">

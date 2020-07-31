@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { saveSongAPI } from "../APIs/saveSongAPI";
+import { motion } from "framer-motion";
 
 const SuggestionCards = (props) => {
   const { recommendedSongs } = props;
@@ -12,8 +13,22 @@ const SuggestionCards = (props) => {
 
   return (
     <div>
-      {recommendedSongs.map((song) => (
-        <div className="fav-songs-card" key={song.spotifyid}>
+      {recommendedSongs.map((song, index) => (
+        <motion.div
+          initial={{
+            opacity: 1,
+            y: 150,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1 + index / 5,
+          }}
+          className="fav-songs-card"
+          key={song.spotifyid}
+        >
           <div key={song.spotifyid} className="song-cards">
             <img
               src={song.album.images[0].url}
@@ -34,7 +49,7 @@ const SuggestionCards = (props) => {
               <embed src={song.preview_url} className="song-preview" />
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   );
