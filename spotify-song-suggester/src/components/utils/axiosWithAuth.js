@@ -34,6 +34,9 @@ export const getSpotifyToken = () => {
     .then((res) => {
       console.log("spotify token", res);
       window.localStorage.setItem("spotify_token", res.data.access_token);
+    })
+    .catch((err) => {
+      console.log("getSpotifyToken", err);
     });
 };
 
